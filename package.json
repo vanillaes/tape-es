@@ -1,0 +1,21 @@
+{
+  "name": "tape-es",
+  "version": "0.0.0",
+  "description": "ESM-compatible Tape.js runner",
+  "keywords": [
+    "tape",
+    "tap",
+    "test",
+    "harness",
+    "esm"
+  ], 
+  "repository": "https://github.com/vanillaes/tape-es.git",
+  "author": "Evan Plaice <evanplaice@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+ 
+}
