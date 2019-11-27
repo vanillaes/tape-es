@@ -1,6 +1,6 @@
 {
   "name": "tape-es",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ESM-compatible Tape.js runner",
   "keywords": [
     "tape",
@@ -17,10 +17,10 @@
   },
   "type": "module",
   "scripts": {},
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "commander": "^4.0.1",
     "glob": "^7.1.6",
     "tape": "^4.11.0"
-  }
+  },
+  "devDependencies": {}
 }
