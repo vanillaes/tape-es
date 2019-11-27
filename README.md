@@ -1,6 +1,12 @@
+[![GitHub Releases](https://img.shields.io/github/release/vanillaes/tape-es.svg)](https://github.com/vanillaes/tape-es/releases)
+[![NPM Release](https://img.shields.io/npm/v/tape-es.svg)](https://www.npmjs.com/package/tape-es)
+[![David](https://img.shields.io/david/vanillaes/tape-es.svg)](https://david-dm.org/vanillaes/tape-es)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanillaes/tape-es/master/LICENSE)
+[![Release Status](https://github.com/vanillaes/tape-es/workflows/Release/badge.svg)](https://github.com/vanillaes/tape-es/actions)
+
 # Tape-ES
 
-A Tape.js test runner for ES modules
+A **[Tape.js][]** test runner for ES modules
 
 - runs ES module tests
 - runs tests in parallel for speed
@@ -53,3 +59,5 @@ test('arrays.chunk(array) - should return a chunk for each item in the array', t
   t.end();
 });
 ```
+
+[Tape.js]: https://github.com/substack/tape
