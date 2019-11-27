@@ -12,7 +12,9 @@
   "repository": "https://github.com/vanillaes/tape-es.git",
   "author": "Evan Plaice <evanplaice@gmail.com>",
   "license": "MIT",
-  "main": "index.js",
+  "bin": {
+    "tape-es": "bin/tape-es"
+  },
   "type": "module",
   "scripts": {},
   "dependencies": {},
