@@ -8,7 +8,7 @@
     "test",
     "harness",
     "esm"
-  ], 
+  ],
   "repository": "https://github.com/vanillaes/tape-es.git",
   "author": "Evan Plaice <evanplaice@gmail.com>",
   "license": "MIT",
@@ -16,6 +16,9 @@
   "type": "module",
   "scripts": {},
   "dependencies": {},
-  "devDependencies": {}
- 
+  "devDependencies": {
+    "commander": "^4.0.1",
+    "glob": "^7.1.6",
+    "tape": "^4.11.0"
+  }
 }
