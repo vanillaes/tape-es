@@ -11,18 +11,27 @@ import cli from 'commander';
 import { spawn } from 'child_process';
 
 const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
-const PATTERN = '**/*.spec.js';
-const SRC = join(process.cwd());
+const DEFAULT_PATTERN = '**/*.spec.js';
+const DEFAULT_IGNORE = "**/node_modules/**";
+const DEFAULT_ROOT = join(process.cwd());
+const DEFAULT_THREADS = 10;
 
 (async () => {
   const pkg = await readPkg(PKG_PATH);
 
   cli.version(pkg.version);
-  cli.option('-v, --version');
+  cli.arguments('[pattern]')
+  cli.option('-i, --ignore <value>', 'Ignore files pattern')
+  cli.option('-r, --root <value>', 'The root path')
+  cli.option('-t, --threads <number>', 'Number of threads to run tests concurrently', parseInt)
+  cli.option('')
   cli.parse(process.argv);
 
-  const tests = await match(cli.args[0]);
-  run(tests)
+  // glob match to fetch the test file list
+  const tests = await match(cli.args[0], cli.ignore, cli.root);
+
+  // run the tests
+  run(tests, cli.threads, cli.root)
 })().catch(e => {
   console.error(e);
 });
@@ -39,12 +48,11 @@ async function readPkg (path) {
   }
 }
 
-async function match (pattern = PATTERN, src = SRC) {
-  return await globAsync(pattern, { cwd: src, ignore: "**/node_modules/**" });
-
+async function match (pattern = DEFAULT_PATTERN, ignore = DEFAULT_IGNORE, root = DEFAULT_ROOT) {
+  return await globAsync(pattern, { cwd: root, ignore });
 }
 
-function run (tests, max = 10) {
+function run (tests, max = DEFAULT_THREADS, root = DEFAULT_ROOT) {
   const testCount = tests.length;
   let running = 0;
   let index = 0;
@@ -53,7 +61,8 @@ function run (tests, max = 10) {
 
     while (running < max && index < testCount) {
       ++running;
-      const ls = spawn("node", [tests[index++]], { 
+      const ls = spawn("node", [tests[index++]], {
+        cwd: root,
         stdio: ['pipe', process.stdout, process.stderr]
       });
       ls.on("close", msg => {
