@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "ESM-compatible Tape.js runner",
   "keywords": [
+    "testing",
     "tape",
     "tap",
     "test",
