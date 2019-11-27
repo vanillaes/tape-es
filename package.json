@@ -17,7 +17,8 @@
   },
   "type": "module",
   "scripts": {
-    "lint": "semistandard"
+    "lint": "semistandard",
+    "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf"
   },
   "dependencies": {
     "commander": "^4.0.1",
