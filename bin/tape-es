@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+
+import { join } from 'path';
+import {exists, readFile } from 'fs';
+import glob from 'glob';
+import { promisify } from 'util';
+const fileExistsAsync = promisify(exists);
+const readFileAsync = promisify(readFile);
+const globAsync = promisify(glob);
+import cli from 'commander';
+import { spawn } from 'child_process';
+
+const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
+const PATTERN = '**/*.spec.js';
+const SRC = join(process.cwd());
+
+(async () => {
+  const pkg = await readPkg(PKG_PATH);
+
+  cli.version(pkg.version);
+  cli.option('-v, --version');
+  cli.parse(process.argv);
+
+  const tests = await match(cli.args[0]);
+  run(tests)
+})().catch(e => {
+  console.error(e);
+});
+
+async function readPkg (path) {
+  if (!await fileExistsAsync(path)) {
+    throw Error('ERR_CONFIG: package.json not found, is this a package?');
+  }
+
+  try {
+    return JSON.parse(await readFileAsync(path, 'utf-8'));
+  } catch {
+    throw Error('ERR_CONFIG: Failed to read package.json');
+  }
+}
+
+async function match (pattern = PATTERN, src = SRC) {
+  return await globAsync(pattern, { cwd: src, ignore: "**/node_modules/**" });
+
+}
+
+function run (tests, max = 10) {
+  const testCount = tests.length;
+  let running = 0;
+  let index = 0;
+  
+  const runMore = () => {
+
+    while (running < max && index < testCount) {
+      ++running;
+      const ls = spawn("node", [tests[index++]], { 
+        stdio: ['pipe', process.stdout, process.stderr]
+      });
+      ls.on("close", msg => {
+          --running;
+          runMore();
+      }).on("error", err => {
+          --running;
+          runMore();
+      });
+    }
+  }
+  runMore();
+}
