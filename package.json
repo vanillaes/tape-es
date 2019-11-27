@@ -16,11 +16,15 @@
     "tape-es": "bin/tape-es"
   },
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "lint": "semistandard"
+  },
   "dependencies": {
     "commander": "^4.0.1",
     "glob": "^7.1.6",
     "tape": "^4.11.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "semistandard": "^14.2.0"
+  }
 }
