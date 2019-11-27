@@ -18,7 +18,9 @@
   "type": "module",
   "scripts": {
     "lint": "semistandard",
-    "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf"
+    "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf",
+    "preversion": "npm run lint",
+    "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "commander": "^4.0.1",
