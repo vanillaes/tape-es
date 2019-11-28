@@ -9,7 +9,6 @@ const readFileAsync = promisify(readFile);
 const globAsync = promisify(glob);
 import cli from 'commander';
 import { spawn } from 'child_process';
-import eachLimit from 'async/eachLimit.js';
 
 const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
 const DEFAULT_PATTERN = '**/*.spec.js';
@@ -30,9 +29,8 @@ const DEFAULT_THREADS = 10;
 
   // glob match to fetch the test file list
   const tests = await match(cli.args[0], cli.ignore, cli.root);
-
   // run the tests
-  run(tests, cli.threads, cli.root)
+  await run(tests, cli.threads, cli.root)
 })().catch(e => {
   console.error(e);
 });
@@ -53,17 +51,23 @@ async function match (pattern = DEFAULT_PATTERN, ignore = DEFAULT_IGNORE, root =
   return await globAsync(pattern, { cwd: root, ignore });
 }
 
-function run (tests, max = DEFAULT_THREADS, root = DEFAULT_ROOT) {
-  eachLimit(tests, max, function(test, callback) {
+async function run (tests, max = DEFAULT_THREADS, root = DEFAULT_ROOT) {
+  await eachLimit(tests, max, function(test) {
     spawn("node", [test], {
       cwd: root,
       stdio: ['pipe', process.stdout, process.stderr]
     }).on("close", msg => {
       if (msg === 1) { process.exitCode = 1; }
-      callback();
     }).on("error", err => {
-      console.err(err);
-      callback();
+      console.error(err);
     });
   });
+}
+
+async function eachLimit (items, limit, fn) {
+  Promise.all([...Array(limit)].map(async () => {
+    while (items.length > 0) {
+      await fn(items.pop());
+    }
+  }));
 }
