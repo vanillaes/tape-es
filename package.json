@@ -29,7 +29,6 @@
     "tape": "^4.11.0"
   },
   "devDependencies": {
-    "async": "^3.1.0",
     "semistandard": "^14.2.0"
   }
 }
