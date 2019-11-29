@@ -34,7 +34,7 @@ Use the defaults
 tape-es
 ```
 
-## Advanced Usage
+### Advanced Usage
 
 Specify custom parameters
 
@@ -53,15 +53,20 @@ import test from 'tape';
 import { arrays } from '../../index.js';
 
 test('arrays.chunk(array) - should return a chunk for each item in the array', t => {
-  const expect = [[1], [2], [3], [4]];
-  const result = arrays.chunk([1, 2, 3, 4]);
-
-  t.equal(Object.prototype.toString.call(result), '[object Array]', 'return type');
-  t.equal(result.length, 4, 'output length');
-  t.deepEqual(result, expect, 'output value');
-
-  t.end();
+  // ...test code
 });
 ```
 
+## Tap Reporters
+
+One of the greatest advantages to using Tape, is that it outputs results in the standard [TAP][] format. That means you can pipe the results into a wide array of TAP reporters.
+
+The parallel nature of this runner will break most reporters. As a General rule.
+
+1. if you want speed (ie CI/CD) don't use a reporter
+2. if you want speed and readability use [tap-spec][]
+3. if you want to use any reporter, run tests in parallel with `tape-es -t 1`
+
 [Tape.js]: https://github.com/substack/tape
+[TAP]: https://en.wikipedia.org/wiki/Test_Anything_Protocol
+[tap-spec]: https://github.com/scottcorgan/tap-spec
