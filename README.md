@@ -17,28 +17,32 @@ A **[Tape.js][]** test runner for ES modules
 
 ## Usage
 
+### Arguments
+
+`tape-es [pattern] -i [pattern] -r [path] -t [number]`
+
+- `[pattern]` - the file matcher pattern (default `**/*.spec.js`)
+- `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
+- `-r` | `--root` - the root path to run the tests from (default `process.cwd()`)
+- `-t` | `--threads` - Number of threads to run concurrently (default `10`)
+
+### Basic Usage
+
+Use the defaults
+
 ```sh
 tape-es
 ```
 
-This package comes w/ sensible defaults
-
-- the current directory is used as the root
-- it matches all files that match `*.spec.js`
-- `node_modules` is excluded from matching
-- tests run on 10 concurrent threads
-
 ## Advanced Usage
 
-All of these defaults can be overridden
-
-`tape-es [pattern] -i [ignore_pattern] -r [root_directory] -t [threads]`
-
-For example...
+Specify custom parameters
 
 ```sh
-tape-es **/*.spec.js -i node_modules/** -r ../absurdum/ -t 20
+tape-es "**/*.spec.js" -i "node_modules/**" -r ../absurdum/ -t 20
 ```
+
+**Note: In Linux/OSX the matcher patterns must be delimited in quotes.**
 
 ## Writing Tests
 
