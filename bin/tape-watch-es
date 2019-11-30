@@ -58,7 +58,7 @@ async function run (test, root = DEFAULT_ROOT) {
     cwd: root,
     stdio: ['pipe', process.stdout, process.stderr]
   }).on("close", msg => {
-    if (msg === 1) { console.error("Test failed!"); }
+    if (msg === 1) { console.error("\x1b[31m%s\x1b[0m %s", 'ERR', 'Test failed!'); }
   }).on("error", err => {
     console.error(err);
   });
