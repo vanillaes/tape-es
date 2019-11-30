@@ -24,6 +24,7 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
+    "chokidar": "^3.3.0",
     "commander": "^4.0.1",
     "glob": "^7.1.6",
     "tape": "^4.11.0"
