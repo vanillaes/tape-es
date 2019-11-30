@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+import { join } from 'path';
+import {exists, readFile } from 'fs';
+import { promisify } from 'util';
+const fileExistsAsync = promisify(exists);
+const readFileAsync = promisify(readFile);
+import cli from 'commander';
+import chokidar from 'chokidar';
+import { spawn } from 'child_process';
+
+const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
+const DEFAULT_PATTERN = '**/*.spec.js';
+const DEFAULT_IGNORE = "**/node_modules/**";
+const DEFAULT_ROOT = process.cwd();
+
+(async () => {
+  const pkg = await readPkg(PKG_PATH);
+
+  cli.version(pkg.version);
+  cli.arguments('[pattern]')
+  cli.option('-i, --ignore [value]', 'Ignore files pattern')
+  cli.option('-r, --root [value]', 'The root path')
+  cli.parse(process.argv);
+
+  // prep the input
+  const pattern = cli.pattern ? cli.pattern : DEFAULT_PATTERN;
+  const ignore = cli.ignore ? cli.ignore : DEFAULT_IGNORE;
+  const root = cli.root ? cli.root : DEFAULT_ROOT;
+
+  // setup the watcher
+  const watcher = chokidar.watch(pattern, {
+      ignored: [ignore],
+      persistent: true,
+      ignoreInitial: true,
+      cwd: root
+    })
+  watcher.on('all', (event, path, stat) => run(path, root));
+})().catch(e => {
+  console.error(e);
+});
+
+async function readPkg (path) {
+  if (!await fileExistsAsync(path)) {
+    throw Error('ERR_CONFIG: package.json not found, is this a package?');
+  }
+
+  try {
+    return JSON.parse(await readFileAsync(path, 'utf-8'));
+  } catch {
+    throw Error('ERR_CONFIG: Failed to read package.json');
+  }
+}
+
+async function run (test, root = DEFAULT_ROOT) {
+  // run the test
+  spawn("node", [test], {
+    cwd: root,
+    stdio: ['pipe', process.stdout, process.stderr]
+  }).on("close", msg => {
+    if (msg === 1) { console.error("Test failed!"); }
+  }).on("error", err => {
+    console.error(err);
+  });
+}

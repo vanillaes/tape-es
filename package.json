@@ -14,7 +14,8 @@
   "author": "Evan Plaice <evanplaice@gmail.com>",
   "license": "MIT",
   "bin": {
-    "tape-es": "bin/tape-es"
+    "tape-es": "bin/tape-es",
+    "tape-watch-es": "bin/tape-watch-es"
   },
   "type": "module",
   "scripts": {
