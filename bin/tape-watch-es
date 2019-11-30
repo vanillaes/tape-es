@@ -1,13 +1,9 @@
 #!/usr/bin/env node
-
-import { join } from 'path';
-import {exists, readFile } from 'fs';
-import { promisify } from 'util';
-const fileExistsAsync = promisify(exists);
-const readFileAsync = promisify(readFile);
 import cli from 'commander';
 import chokidar from 'chokidar';
-import { spawn } from 'child_process';
+import { join } from 'path';
+import { run } from '../src/runners.js';
+import { readPkg } from '../src/util.js'
 
 const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
 const DEFAULT_PATTERN = '**/*.spec.js';
@@ -17,11 +13,11 @@ const DEFAULT_ROOT = process.cwd();
 (async () => {
   const pkg = await readPkg(PKG_PATH);
 
-  cli.version(pkg.version);
-  cli.arguments('[pattern]')
-  cli.option('-i, --ignore [value]', 'Ignore files pattern')
-  cli.option('-r, --root [value]', 'The root path')
-  cli.parse(process.argv);
+  cli.version(pkg.version)
+    .arguments('[pattern]')
+    .option('-i, --ignore [value]', 'Ignore files pattern')
+    .option('-r, --root [value]', 'The root path')
+    .parse(process.argv);
 
   // prep the input
   const pattern = cli.pattern ? cli.pattern : DEFAULT_PATTERN;
@@ -39,27 +35,3 @@ const DEFAULT_ROOT = process.cwd();
 })().catch(e => {
   console.error(e);
 });
-
-async function readPkg (path) {
-  if (!await fileExistsAsync(path)) {
-    throw Error('ERR_CONFIG: package.json not found, is this a package?');
-  }
-
-  try {
-    return JSON.parse(await readFileAsync(path, 'utf-8'));
-  } catch {
-    throw Error('ERR_CONFIG: Failed to read package.json');
-  }
-}
-
-async function run (test, root = DEFAULT_ROOT) {
-  // run the test
-  spawn("node", [test], {
-    cwd: root,
-    stdio: ['pipe', process.stdout, process.stderr]
-  }).on("close", msg => {
-    if (msg === 1) { console.error("\x1b[31m%s\x1b[0m %s", 'ERR', 'Test failed!'); }
-  }).on("error", err => {
-    console.error(err);
-  });
-}

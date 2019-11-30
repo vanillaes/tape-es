@@ -1,14 +1,8 @@
 #!/usr/bin/env node
-
-import { join } from 'path';
-import {exists, readFile } from 'fs';
-import glob from 'glob';
-import { promisify } from 'util';
-const fileExistsAsync = promisify(exists);
-const readFileAsync = promisify(readFile);
-const globAsync = promisify(glob);
 import cli from 'commander';
-import { spawn } from 'child_process';
+import { join } from 'path';
+import { runAll } from '../src/runners.js';
+import { readPkg, match } from '../src/util.js'
 
 const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
 const DEFAULT_PATTERN = '**/*.spec.js';
@@ -19,55 +13,23 @@ const DEFAULT_THREADS = 10;
 (async () => {
   const pkg = await readPkg(PKG_PATH);
 
-  cli.version(pkg.version);
-  cli.arguments('[pattern]')
-  cli.option('-i, --ignore [value]', 'Ignore files pattern')
-  cli.option('-r, --root [value]', 'The root path')
-  cli.option('-t, --threads [number]', 'Number of threads to run tests concurrently', parseInt)
-  cli.option('')
-  cli.parse(process.argv);
+  cli.version(pkg.version)
+    .arguments('[pattern]')
+    .option('-i, --ignore [value]', 'Ignore files pattern')
+    .option('-r, --root [value]', 'The root path')
+    .option('-t, --threads [number]', 'Number of threads to run tests concurrently', parseInt)
+    .parse(process.argv);
+
+  // prep the input
+  const pattern = cli.args[0] ? cli.args[0] : DEFAULT_PATTERN;
+  const ignore = cli.ignore ? cli.ignore : DEFAULT_IGNORE;
+  const root = cli.root ? cli.root : DEFAULT_ROOT;
+  const threads = cli.threads ? cli.threads : DEFAULT_THREADS;
 
   // glob match to fetch the test file list
-  const tests = await match(cli.args[0], cli.ignore, cli.root);
+  const tests = await match(pattern, ignore, root);
   // run the tests
-  await run(tests, cli.threads, cli.root)
+  await runAll(tests, threads, root)
 })().catch(e => {
   console.error(e);
 });
-
-async function readPkg (path) {
-  if (!await fileExistsAsync(path)) {
-    throw Error('ERR_CONFIG: package.json not found, is this a package?');
-  }
-
-  try {
-    return JSON.parse(await readFileAsync(path, 'utf-8'));
-  } catch {
-    throw Error('ERR_CONFIG: Failed to read package.json');
-  }
-}
-
-async function match (pattern = DEFAULT_PATTERN, ignore = DEFAULT_IGNORE, root = DEFAULT_ROOT) {
-  return await globAsync(pattern, { cwd: root, ignore });
-}
-
-async function run (tests, max = DEFAULT_THREADS, root = DEFAULT_ROOT) {
-  await eachLimit(tests, max, function(test) {
-    spawn("node", [test], {
-      cwd: root,
-      stdio: ['pipe', process.stdout, process.stderr]
-    }).on("close", msg => {
-      if (msg === 1) { process.exitCode = 1; }
-    }).on("error", err => {
-      console.error(err);
-    });
-  });
-}
-
-async function eachLimit (items, limit, fn) {
-  Promise.all([...Array(limit)].map(async () => {
-    while (items.length > 0) {
-      await fn(items.pop());
-    }
-  }));
-}
