@@ -1,8 +1,8 @@
 [![GitHub Releases](https://img.shields.io/github/release/vanillaes/tape-es.svg)](https://github.com/vanillaes/tape-es/releases)
 [![NPM Release](https://img.shields.io/npm/v/tape-es.svg)](https://www.npmjs.com/package/tape-es)
-[![David](https://img.shields.io/david/vanillaes/tape-es.svg)](https://david-dm.org/vanillaes/tape-es)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanillaes/tape-es/master/LICENSE)
-[![Release Status](https://github.com/vanillaes/tape-es/workflows/Release/badge.svg)](https://github.com/vanillaes/tape-es/actions)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanillaes/tape-es/master/LICENSE)
+[![Latest Status](https://github.com/vanillaes/csv-es/workflows/Latest/badge.svg)](https://github.com/vanillaes/tape-es/actions)
+[![Release Status](https://github.com/vanillaes/csv-es/workflows/Release/badge.svg)](https://github.com/vanillaes/tape-es/actions)
 
 # Tape-ES
 
