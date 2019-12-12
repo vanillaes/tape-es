@@ -20,7 +20,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">13.2"
+    "node": ">=13.2"
   },
   "scripts": {
     "lint": "semistandard",
