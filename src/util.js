@@ -18,6 +18,10 @@ export async function readPkg (path) {
 }
 
 export async function match (pattern, ignore, root) {
+  // multiple ignore patterns
+  if (ignore.includes(',')) {
+    ignore = ignore.split(',');
+  }
   return globAsync(pattern, { cwd: root, ignore });
 }
 
