@@ -3,7 +3,7 @@ import cli from 'commander';
 import chokidar from 'chokidar';
 import { join } from 'path';
 import { run } from '../src/runners.js';
-import { readPkg } from '../src/util.js'
+import { readPkg } from '../src/util/index.js'
 
 const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
 const DEFAULT_PATTERN = '**/*.spec.js';
