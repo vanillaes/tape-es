@@ -24,11 +24,3 @@ export async function match (pattern, ignore, root) {
   }
   return globAsync(pattern, { cwd: root, ignore });
 }
-
-export async function eachLimit (items, limit, fn) {
-  Promise.all([...Array(limit)].map(async () => {
-    while (items.length > 0) {
-      await fn(items.pop());
-    }
-  }));
-}
