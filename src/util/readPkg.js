@@ -1,9 +1,7 @@
 import { stat, readFile } from 'fs';
 import { promisify } from 'util';
-import glob from 'glob';
 const fileStatAsync = promisify(stat);
 const readFileAsync = promisify(readFile);
-const globAsync = promisify(glob);
 
 export async function readPkg (path) {
   if (!await fileStatAsync(path)) {
