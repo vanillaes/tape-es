@@ -2,7 +2,8 @@
 import cli from 'commander';
 import { join } from 'path';
 import { runAll } from '../src/runners.js';
-import { readPkg, match } from '../src/util.js'
+import { readPkg } from '../src/util.js'
+import { match } from '../src/util/index.js';
 
 const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
 const DEFAULT_PATTERN = '**/*.spec.js';
