@@ -1,17 +1,15 @@
 #!/usr/bin/env node
 import cli from 'commander';
-import { join } from 'path';
 import { runAll } from '../src/runners.js';
-import { match, readPkg } from '../src/util/index.js';
+import { match, pkgPath, readPkg } from '../src/util/index.js';
 
-const PKG_PATH = join(new URL(import.meta.url).pathname, '../../package.json');
 const DEFAULT_PATTERN = '**/*.spec.js';
 const DEFAULT_IGNORE = "**/node_modules/**";
 const DEFAULT_ROOT = process.cwd();
 const DEFAULT_THREADS = 10;
 
 (async () => {
-  const pkg = await readPkg(PKG_PATH);
+  const pkg = await readPkg(pkgPath);
 
   cli.version(pkg.version)
     .arguments('[pattern]')
