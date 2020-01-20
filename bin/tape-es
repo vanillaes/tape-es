@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import cli from 'commander';
 import { runAll } from '../src/runners.js';
-import { match, pkgPath, readPkg } from '../src/util/index.js';
+import { match, readPkg } from '../src/util/index.js';
 
 const DEFAULT_PATTERN = '**/*.spec.js';
 const DEFAULT_IGNORE = "**/node_modules/**";
@@ -9,7 +9,7 @@ const DEFAULT_ROOT = process.cwd();
 const DEFAULT_THREADS = 10;
 
 (async () => {
-  const pkg = await readPkg(pkgPath);
+  const pkg = await readPkg();
 
   cli.version(pkg.version)
     .arguments('[pattern]')
@@ -18,15 +18,12 @@ const DEFAULT_THREADS = 10;
     .option('-t, --threads [number]', 'Number of threads to run tests concurrently', parseInt)
     .parse(process.argv);
 
-  // prep the input
   const pattern = cli.args[0] ? cli.args[0] : DEFAULT_PATTERN;
   const ignore = cli.ignore ? cli.ignore : DEFAULT_IGNORE;
   const root = cli.root ? cli.root : DEFAULT_ROOT;
   const threads = cli.threads ? cli.threads : DEFAULT_THREADS;
 
-  // glob match to fetch the test file list
   const tests = await match(pattern, ignore, root);
-  // run the tests
   await runAll(tests, threads, root)
 })().catch(e => {
   console.error(e);
