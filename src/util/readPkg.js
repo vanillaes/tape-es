@@ -1,8 +1,7 @@
 import { promises as fs } from 'fs';
-import { join } from 'path';
 
 export async function readPkg () {
-  const PKG_PATH = join(new URL(import.meta.url).pathname, '../../../package.json');
+  const PKG_PATH = new URL('../../package.json', import.meta.url);
   if (!await fs.stat(PKG_PATH)) {
     throw Error('package.json not found, is this a package?');
   }
