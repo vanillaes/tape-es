@@ -1,12 +1,16 @@
-[![GitHub Releases](https://img.shields.io/github/release/vanillaes/tape-es.svg)](https://github.com/vanillaes/tape-es/releases)
-[![NPM Release](https://img.shields.io/npm/v/tape-es.svg)](https://www.npmjs.com/package/tape-es)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/vanillaes/tape-es/master/LICENSE)
+<h1 align="center">Tape-ES</h1>
+
+A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both ES modules and CommonJS.
+
+[![GitHub Releases](https://badgen.net/github/tag/vanillaes/tape-es)](https://github.com/vanillaes/tape-es/releases)
+[![NPM Release](https://badgen.net/npm/v/tape-es)](https://www.npmjs.com/package/tape-es)
+[![MIT License](https://badgen.net/github/license/vanillaes/tape-es)](https://raw.githubusercontent.com/vanillaes/tape-es/master/LICENSE)
 [![Latest Status](https://github.com/vanillaes/csv-es/workflows/Latest/badge.svg)](https://github.com/vanillaes/tape-es/actions)
 [![Release Status](https://github.com/vanillaes/csv-es/workflows/Release/badge.svg)](https://github.com/vanillaes/tape-es/actions)
 
-# Tape-ES
+<p align="center"><strong>⚠️ Notice: EcmaScript Module Support in Node is Experimental ⚠️</strong></p>
 
-A **[Tape.js][]** test runner and test watcher for ES modules
+## Features
 
 - runs ES module tests
 - runs tests in parallel for speed
