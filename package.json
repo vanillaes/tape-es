@@ -12,16 +12,14 @@
     "esm"
   ],
   "repository": "https://github.com/vanillaes/tape-es.git",
-  "author": "Evan Plaice <evanplaice@gmail.com>",
+  "author": "Evan Plaice <evanplaice@gmail.com> (http://evanplaice.com/)",
   "license": "MIT",
+  "type": "module",
   "bin": {
     "tape-es": "bin/tape-es",
     "tape-watch-es": "bin/tape-watch-es"
   },
-  "type": "module",
-  "engines": {
-    "node": ">=13.2"
-  },
+
   "scripts": {
     "lint": "semistandard",
     "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf",
@@ -40,5 +38,8 @@
   },
   "semistandard": {
     "parser": "babel-eslint"
+  },
+  "engines": {
+    "node": ">=13.2"
   }
 }
