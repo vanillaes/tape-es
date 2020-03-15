@@ -29,7 +29,6 @@
     "chokidar": "^3.3.0",
     "commander": "^4.0.1",
     "glob": "^7.1.6",
-    "minimist": ">=1.2.2",
     "tape": "^4.13.2"
   },
   "devDependencies": {
