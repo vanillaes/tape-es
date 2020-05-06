@@ -2,10 +2,10 @@
 import cli from 'commander';
 import chokidar from 'chokidar';
 import { run } from '../src/runners.js';
-import { readPkg } from '../src/util/index.js'
+import { readPkg } from '../src/util/index.js';
 
 const DEFAULT_PATTERN = '**/*.spec.js';
-const DEFAULT_IGNORE = "**/node_modules/**";
+const DEFAULT_IGNORE = '**/node_modules/**';
 const DEFAULT_ROOT = process.cwd();
 
 (async () => {
@@ -22,11 +22,11 @@ const DEFAULT_ROOT = process.cwd();
   const root = cli.root ? cli.root : DEFAULT_ROOT;
 
   const watcher = chokidar.watch(pattern, {
-      ignored: [ignore],
-      persistent: true,
-      ignoreInitial: true,
-      cwd: root
-    })
+    ignored: [ignore],
+    persistent: true,
+    ignoreInitial: true,
+    cwd: root
+  });
   watcher.on('all', (event, path, stat) => run(path, root));
 })().catch(e => {
   console.error(e);

@@ -16,8 +16,8 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "tape-es": "bin/tape-es",
-    "tape-watch-es": "bin/tape-watch-es"
+    "tape-es": "bin/tape-es.js",
+    "tape-watch-es": "bin/tape-watch-es.js"
   },
   "scripts": {
     "lint": "semistandard",

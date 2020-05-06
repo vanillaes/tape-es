@@ -4,7 +4,7 @@ import { runAll } from '../src/runners.js';
 import { match, readPkg } from '../src/util/index.js';
 
 const DEFAULT_PATTERN = '**/*.spec.js';
-const DEFAULT_IGNORE = "**/node_modules/**";
+const DEFAULT_IGNORE = '**/node_modules/**';
 const DEFAULT_ROOT = process.cwd();
 const DEFAULT_THREADS = 10;
 
@@ -24,7 +24,7 @@ const DEFAULT_THREADS = 10;
   const threads = cli.threads ? cli.threads : DEFAULT_THREADS;
 
   const tests = await match(pattern, ignore, root);
-  await runAll(tests, threads, root)
+  await runAll(tests, threads, root);
 })().catch(e => {
   console.error(e);
 });
