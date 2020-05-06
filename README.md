@@ -8,8 +8,6 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 [![Latest Status](https://github.com/vanillaes/csv-es/workflows/Latest/badge.svg)](https://github.com/vanillaes/tape-es/actions)
 [![Release Status](https://github.com/vanillaes/csv-es/workflows/Release/badge.svg)](https://github.com/vanillaes/tape-es/actions)
 
-<p align="center"><strong>⚠️ Notice: EcmaScript Module Support in Node is Experimental ⚠️</strong></p>
-
 ## Features
 
 - runs ES module tests
@@ -17,7 +15,7 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 - uses sensible defaults
 - works with `type: module` packages
 
-*Note: Since this is an ES package, it requires Node >= v13.2*
+*Note: Since this is an ES package, it requires Node >= v14.x*
 
 ## tape-es
 

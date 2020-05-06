@@ -39,6 +39,6 @@
     "parser": "babel-eslint"
   },
   "engines": {
-    "node": ">=13.2"
+    "node": "~14"
   }
 }
