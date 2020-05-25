@@ -1,3 +1,4 @@
 .github/
+.vscode/
 *.spec.js
 *.tgz
