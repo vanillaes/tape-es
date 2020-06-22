@@ -20,7 +20,7 @@
     "tape-watch-es": "bin/tape-watch-es.js"
   },
   "scripts": {
-    "lint": "semistandard",
+    "lint": "esmtk lint",
     "package": "npx rimraf package && npm pack | tail -n 1 | xargs tar -xf",
     "preversion": "npm run lint",
     "postversion": "git push --follow-tags"
@@ -32,11 +32,7 @@
     "tape": "^4.13.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "semistandard": "^14.2.0"
-  },
-  "semistandard": {
-    "parser": "babel-eslint"
+    "esmtk": "^0.1.1"
   },
   "engines": {
     "node": "~14"
