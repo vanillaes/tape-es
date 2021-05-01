@@ -2,11 +2,12 @@
 
 A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both ES modules and CommonJS.
 
-[![GitHub Releases](https://badgen.net/github/tag/vanillaes/tape-es)](https://github.com/vanillaes/tape-es/releases)
-[![NPM Release](https://badgen.net/npm/v/tape-es)](https://www.npmjs.com/package/tape-es)
-[![MIT License](https://badgen.net/github/license/vanillaes/tape-es)](https://raw.githubusercontent.com/vanillaes/tape-es/master/LICENSE)
-[![Latest Status](https://github.com/vanillaes/tape-es/workflows/Latest/badge.svg)](https://github.com/vanillaes/tape-es/actions)
-[![Release Status](https://github.com/vanillaes/tape-es/workflows/Release/badge.svg)](https://github.com/vanillaes/tape-es/actions)
+<div align="center">
+  <a href="https://github.com/vanillaes/tape-es/releases"><img src="https://badgen.net/github/tag/vanillaes/tape-es" alt="GitHub Release"></a>
+  <a href="https://www.npmjs.com/package/tape-es"><img src="https://badgen.net/npm/v/tape-es" alt="NPM Release"></a>
+  <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Latest/badge.svg" alt="Latest Status"></a>
+  <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Release/badge.svg" alt="Release Status"></a>
+</div>
 
 ## Features
 
