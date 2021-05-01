@@ -4,12 +4,11 @@
   "description": "ESM-compatible Tape.js test runner",
   "keywords": [
     "testing",
+    "esm",
+    "esmodules",
     "tape",
-    "tap",
-    "test",
-    "watch",
-    "harness",
-    "esm"
+    "nodejs",
+    "cli"
   ],
   "repository": "https://github.com/vanillaes/tape-es.git",
   "author": "Evan Plaice <evanplaice@gmail.com> (http://evanplaice.com/)",
