@@ -10,7 +10,7 @@
     "nodejs",
     "cli"
   ],
-  "repository": "https://github.com/vanillaes/tape-es.git",
+  "repository": "https://github.com/vanillaes/tape-es",
   "author": "Evan Plaice <evanplaice@gmail.com> (http://evanplaice.com/)",
   "license": "MIT",
   "type": "module",
