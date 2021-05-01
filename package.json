@@ -30,10 +30,10 @@
     "glob": "^7.1.6",
     "tape": "^4.13.3"
   },
+  "devDependencies": {
+    "esmtk": "^0.5.3"
+  },
   "engines": {
     "node": ">=14"
-  },
-  "devDependencies": {
-    "esmtk": "^0.5.1"
   }
 }
