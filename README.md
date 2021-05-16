@@ -7,6 +7,8 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
   <a href="https://www.npmjs.com/package/tape-es"><img src="https://badgen.net/npm/v/tape-es" alt="NPM Release"></a>
   <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Latest/badge.svg" alt="Latest Status"></a>
   <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Release/badge.svg" alt="Release Status"></a>
+
+  <a href="https://discord.gg/aSWYgtybzV"><img alt="Discord" src="https://img.shields.io/discord/723296249121603604?color=%23738ADB"></a>
 </div>
 
 ## Features
