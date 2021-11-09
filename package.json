@@ -25,13 +25,13 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
-    "chokidar": "^3.5.1",
+    "chokidar": "^3.5.2",
     "commander": "^4.1.1",
-    "glob": "^7.1.6",
-    "tape": "^4.13.3"
+    "glob": "^7.2.0",
+    "tape": "^4.14.0"
   },
   "devDependencies": {
-    "esmtk": "^0.5.3"
+    "esmtk": "^0.5.13"
   },
   "engines": {
     "node": ">=14"
