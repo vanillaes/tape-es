@@ -1,6 +1,6 @@
 {
   "name": "tape-es",
-  "version": "1.2.16",
+  "version": "1.2.17",
   "description": "ESM-compatible Tape.js test runner",
   "keywords": [
     "testing",
