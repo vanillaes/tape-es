@@ -1,5 +1,5 @@
 {
-  "name": "tape-es",
+  "name": "@vanillaes/tape-es",
   "version": "1.2.18",
   "description": "ESM-compatible Tape.js test runner",
   "keywords": [
