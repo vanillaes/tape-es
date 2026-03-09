@@ -6,6 +6,28 @@
       "type": "node",
       "request": "launch",
       "program": "${file}"
-    }
+    },
+    {
+      "name": "Tape-ES (Test)",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": [
+          "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/bin/tape-es.js",
+      "cwd": "${userHome}/Code/vanillaes/csv",
+      "console": "integratedTerminal",
+  },
+  {
+      "name": "Tape-Watch-ES (Test)",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": [
+          "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/bin/tape-watch-es.js",
+      "cwd": "${userHome}/Code/vanillaes/csv",
+      "console": "integratedTerminal",
+  }
   ]
 }
