@@ -1,5 +1,5 @@
 import { spawn } from 'child_process'
-import { eachLimit } from './util/index.js'
+import { eachLimit } from './index.js'
 
 export async function run (test, root) {
   spawn('node', [test], {

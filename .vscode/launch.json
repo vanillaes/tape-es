@@ -15,7 +15,7 @@
           "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/bin/tape-es.js",
-      "cwd": "${userHome}/Code/vanillaes/csv",
+      "args": ["-r", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
   },
   {
