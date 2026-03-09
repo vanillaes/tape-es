@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-import { run } from '../src/index.js'
-import { glob } from 'node:fs/promises'
+import { match, run } from '../src/index.js'
 import { createRequire } from 'node:module'
 import cli from 'commander'
 import { watch } from 'chokidar'
@@ -22,15 +21,15 @@ const DEFAULT_ROOT = process.cwd();
   const ignore = cli.ignore ? cli.ignore : DEFAULT_IGNORE
   const root = cli.root ? cli.root : DEFAULT_ROOT
 
-  const files = await Array.fromAsync(glob(pattern, { cwd: root, exclude: [ignore] }))
-  const watcher = watch(files, {
+  const tests = await match(pattern, root, ignore)
+  const watcher = watch(tests, {
     ignored: [ignore],
     persistent: true,
     ignoreInitial: true,
     cwd: root,
     depth: 99
   })
-  watcher.on('all', (event, path, stat) => run(path, root))
+  watcher.on('all', (_, path) => run(path, root))
 })().catch(e => {
   console.error(e)
 })

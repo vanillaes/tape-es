@@ -23,7 +23,7 @@ const DEFAULT_THREADS = 10;
   const root = cli.root ? cli.root : DEFAULT_ROOT
   const threads = cli.threads ? cli.threads : DEFAULT_THREADS
 
-  const tests = await match(pattern, ignore, root)
+  const tests = await match(pattern, root, ignore)
   await runAll(tests, threads, root)
 })().catch(e => {
   console.error(e)
