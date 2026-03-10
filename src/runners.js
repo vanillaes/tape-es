@@ -1,6 +1,11 @@
 import { spawn } from 'child_process'
 import { eachLimit } from './index.js'
 
+/**
+ * Run a single test file
+ * @param {string} test path to the test file
+ * @param {any} root root path where the test is based
+ */
 export async function run (test, root) {
   spawn('node', [test], {
     cwd: root,
@@ -12,6 +17,12 @@ export async function run (test, root) {
   })
 }
 
+/**
+ * Run all tests
+ * @param {Array<string>} tests paths to the test files
+ * @param {any} max maximum number of threads to execute in parallel
+ * @param {any} root root path where the test is based
+ */
 export async function runAll (tests, max, root) {
   await eachLimit(tests, max, function (test) {
     spawn('node', [test], {
