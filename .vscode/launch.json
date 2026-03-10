@@ -2,10 +2,25 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Current File",
+      "name": "Tape-ES (Version)",
       "type": "node",
       "request": "launch",
-      "program": "${file}"
+      "skipFiles": [
+          "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/bin/tape-es.js",
+      "args": ["--version"],
+      "console": "integratedTerminal",
+    },
+    {
+      "name": "Tape-ES (Current File)",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": [
+          "<node_internals>/**"
+      ],
+      "program": "${file}",
+      "console": "integratedTerminal"
     },
     {
       "name": "Tape-ES (Test)",
@@ -17,16 +32,16 @@
       "program": "${workspaceFolder}/bin/tape-es.js",
       "args": ["-r", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
-  },
-  {
+    },
+    {
       "name": "Tape-Watch-ES (Test)",
       "type": "node",
       "request": "launch",
       "skipFiles": [
           "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/bin/tape-watch-es.js",
-      "args": ["-r", "${userHome}/Code/vanillaes/csv"],
+      "program": "${workspaceFolder}/bin/tape-es.js",
+      "args": ["--watch", "-r", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
   }
   ]

@@ -1,30 +1,37 @@
 #!/usr/bin/env node
-import { match, runAll } from '../src/index.js'
+import { testAll, testWatch } from './commands/index.js'
 import { createRequire } from 'node:module'
-import cli from 'commander'
+import { Command } from 'commander'
+const program = new Command()
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 
 const DEFAULT_PATTERN = '**/*.spec.js'
 const DEFAULT_IGNORE = '**/node_modules/**'
 const DEFAULT_ROOT = process.cwd()
-const DEFAULT_THREADS = 10;
+const DEFAULT_THREADS = 10
 
-(async () => {
-  cli.version(pkg.version)
-    .arguments('[pattern]')
-    .option('-i, --ignore [value]', 'Ignore files pattern')
-    .option('-r, --root [value]', 'The root path')
-    .option('-t, --threads [number]', 'Number of threads to run tests concurrently', parseInt)
-    .parse(process.argv)
+program
+  .name('tape-es')
+  .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
 
-  const pattern = cli.args[0] ? cli.args[0] : DEFAULT_PATTERN
-  const ignore = cli.ignore ? cli.ignore : DEFAULT_IGNORE
-  const root = cli.root ? cli.root : DEFAULT_ROOT
-  const threads = cli.threads ? cli.threads : DEFAULT_THREADS
+program.version(pkg.version, '-v, --version')
 
-  const tests = await match(pattern, root, ignore)
-  await runAll(tests, threads, root)
-})().catch(e => {
-  console.error(e)
-})
+program.argument('[pattern]', 'Glob pattern', DEFAULT_PATTERN)
+  .description('Test files matching the provided pattern (default *.spec.js)')
+  .usage('[--watch] [-irt] pattern', false)
+  .option('--watch', 'Watch for changes to tests', false)
+  .option('-i, --ignore [value]', 'Ignore files pattern', DEFAULT_IGNORE)
+  .option('-r, --root [value]', 'The root path', DEFAULT_ROOT)
+  .option('-t, --threads [number]', 'Number of threads to run tests concurrently', parseInt, DEFAULT_THREADS)
+  .action((pattern, options) => {
+    if (!options?.watch) {
+      testAll(pattern, options)
+    }
+
+    if (options?.watch) {
+      testWatch(pattern, options)
+    }
+  })
+
+program.parse(process.argv)

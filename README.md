@@ -15,8 +15,6 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 - uses sensible defaults
 - works with `type: module` packages
 
-*Note: Since this is an ES package, it requires Node >= v14.x*
-
 ## tape-es
 
 ### Arguments
@@ -24,6 +22,7 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 `tape-es [pattern] -i [pattern] -r [path] -t [number]`
 
 - `[pattern]` - the file matcher pattern (default `**/*.spec.js`)
+- `--watch` - watch the tests for changes
 - `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
 - `-r` | `--root` - the root path to run the tests from (default `process.cwd()`)
 - `-t` | `--threads` - Number of threads to run concurrently (default `10`)
@@ -42,34 +41,6 @@ Specify custom parameters
 
 ```sh
 tape-es "**/*.spec.js" -i "node_modules/**" -r ../absurdum/ -t 20
-```
-
-**Note: In Linux/OSX the matcher patterns must be delimited in quotes.**
-
-## tape-watch-es
-
-### Arguments
-
-`tape-es [pattern] -i [pattern] -r [path]`
-
-- `[pattern]` - the file matcher pattern (default `**/*.spec.js`)
-- `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
-- `-r` | `--root` - the root path to run the tests from (default `process.cwd()`)
-
-### Basic Usage
-
-Use the defaults
-
-```sh
-tape-watch-es
-```
-
-### Advanced Usage
-
-Specify custom parameters
-
-```sh
-tape-es "**/*.spec.js" -i "node_modules/**" -r ../absurdum/
 ```
 
 **Note: In Linux/OSX the matcher patterns must be delimited in quotes.**

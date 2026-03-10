@@ -15,8 +15,10 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "tape-es": "bin/tape-es.js",
-    "tape-watch-es": "bin/tape-watch-es.js"
+    "tape-es": "bin/tape-es.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
   },
   "scripts": {
     "lint": "esmtk lint",
