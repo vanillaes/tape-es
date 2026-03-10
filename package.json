@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "chokidar": "^5.0.0",
-    "commander": "^4.1.1",
+    "commander": "^14.0.3",
     "tape": "^4.14.0"
   },
   "engines": {
