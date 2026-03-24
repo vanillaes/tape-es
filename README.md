@@ -3,8 +3,9 @@
 A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both ES modules and CommonJS.
 
 <div align="center">
-  <a href="https://github.com/vanillaes/tape-es/releases"><img src="https://badgen.net/github/tag/vanillaes/tape-es" alt="GitHub Release"></a>
-  <a href="https://www.npmjs.com/package/tape-es"><img src="https://badgen.net/npm/v/tape-es" alt="NPM Release"></a>
+  <a href="https://github.com/vanillaes/tape-es/releases"><img src="https://badgen.net/github/tag/vanillaes/tape-es?cache-control=no-cache" alt="GitHub Release"></a>
+  <a href="https://www.npmjs.com/package/@vanillaes/tape-es"><img src="https://badgen.net/npm/v/@vanillaes/tape-es?icon=npm" alt="NPM Version"></a>
+  <a href="https://www.npmjs.com/package/@vanillaes/tape-es"><img src="https://badgen.net/npm/dm/@vanillaes/tape-es?icon=npm" alt="NPM Downloads"></a>
   <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Latest/badge.svg" alt="Latest Status"></a>
   <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Release/badge.svg" alt="Release Status"></a>
 </div>
@@ -12,7 +13,6 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 ## Features
 
 - runs ES module tests
-- runs tests in parallel for speed
 - uses sensible defaults
 - works with `type: module` packages
 
@@ -40,7 +40,7 @@ tape-es
 Specify custom parameters
 
 ```sh
-tape-es "**/*.spec.js" -i "node_modules/**" -r ../absurdum/ -t 20
+tape-es "**/*.spec.js" -i "node_modules/**" -r ../absurdum/
 ```
 
 **Note: In Linux/OSX the matcher patterns must be delimited in quotes.**
