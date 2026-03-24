@@ -33,7 +33,7 @@
     "tape": "^5.9.0"
   },
   "devDependencies": {
-    "@types/node": "^25.4.0",
+    "@types/node": "^25.5.0",
     "@vanillaes/esmtk": "^0.9.0"
   }
 }

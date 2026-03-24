@@ -19,6 +19,7 @@ export async function match (pattern, root, ignore) {
  * Run 'spawn' asynchronously
  * @param {string} command the command to run
  * @param {string[]} args an array of arguments
+ * @param {string} root the root directory to run the commands
  */
 export function spawnAsync (command, args, root) {
   return new Promise((resolve, reject) => {
@@ -29,9 +30,6 @@ export function spawnAsync (command, args, root) {
 
     child.stdout.on('data', (data) => {
       stdoutData += data.toString()
-    })
-    child.stderr.on('data', (data) => {
-      stderrData += data.toString()
     })
     child.on('close', (code) => {
       if (code === 0) {
