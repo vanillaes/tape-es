@@ -9,8 +9,8 @@ import { glob } from 'node:fs/promises'
  * @returns {Promise<string[]>} an array of paths
  */
 export async function match (pattern, root, ignore) {
-  const patterns = pattern.includes(',') ? [pattern] : pattern.split(',')
-  const ignores = ignore.includes(',') ? [ignore] : ignore.split(',')
+  const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
+  const ignores = ignore.includes(',') ? ignore.split(',') : [ignore]
 
   return await Array.fromAsync(glob(patterns, { cwd: root, exclude: ignores }))
 }
@@ -30,6 +30,9 @@ export function spawnAsync (command, args, root) {
 
     child.stdout.on('data', (data) => {
       stdoutData += data.toString()
+    })
+    child.stderr.on('data', (data) => {
+      stderrData += data.toString()
     })
     child.on('close', (code) => {
       if (code === 0) {
