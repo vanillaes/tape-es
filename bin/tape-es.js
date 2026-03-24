@@ -9,7 +9,6 @@ const pkg = require('../package.json')
 const DEFAULT_PATTERN = '**/*.spec.js'
 const DEFAULT_IGNORE = '**/node_modules/**'
 const DEFAULT_ROOT = process.cwd()
-const DEFAULT_THREADS = 10
 
 program
   .name('tape-es')
@@ -23,7 +22,6 @@ program.argument('[pattern]', 'Glob pattern', DEFAULT_PATTERN)
   .option('--watch', 'Watch for changes to tests', false)
   .option('-i, --ignore [value]', 'Ignore files pattern', DEFAULT_IGNORE)
   .option('-r, --root [value]', 'The root path', DEFAULT_ROOT)
-  .option('-t, --threads [number]', 'Number of threads to run tests concurrently', parseInt, DEFAULT_THREADS)
   .action((pattern, options) => {
     if (!options?.watch) {
       testAll(pattern, options)

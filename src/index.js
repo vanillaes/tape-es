@@ -1,2 +1,2 @@
 export { run, runAll } from './runners.js'
-export { eachLimit, match } from './util.js'
+export { match, spawnAsync } from './util.js'

@@ -1,28 +1,47 @@
+import { spawn } from 'node:child_process'
 import { glob } from 'node:fs/promises'
-
-/**
- * Execute a function for each item but limit the total runnning at once
- * @param {string[]} items the items to be acted on
- * @param {number} limit the total number of threads to run at once
- * @param {function} fn the function to apply to each item
- */
-export async function eachLimit (items, limit, fn) {
-  Promise.all([...Array(limit)].map(async () => {
-    while (items.length > 0) {
-      await fn(items.pop())
-    }
-  }))
-}
 
 /**
  * Description
  * @param {string} pattern glob pattern(s) to match
  * @param {string} root root path where the matcher runs from
  * @param {string} ignore glob of pattern(s) to ignore
+ * @returns {Promise<string[]>} an array of paths
  */
 export async function match (pattern, root, ignore) {
   const patterns = pattern.includes(',') ? [pattern] : pattern.split(',')
   const ignores = ignore.includes(',') ? [ignore] : ignore.split(',')
 
   return await Array.fromAsync(glob(patterns, { cwd: root, exclude: ignores }))
+}
+
+/**
+ * Run 'spawn' asynchronously
+ * @param {string} command the command to run
+ * @param {string[]} args an array of arguments
+ */
+export function spawnAsync (command, args, root) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, args, { cwd: root })
+
+    let stdoutData = ''
+    let stderrData = ''
+
+    child.stdout.on('data', (data) => {
+      stdoutData += data.toString()
+    })
+    child.stderr.on('data', (data) => {
+      stderrData += data.toString()
+    })
+    child.on('close', (code) => {
+      if (code === 0) {
+        resolve({ stdout: stdoutData, stderr: stderrData })
+      } else {
+        reject(new Error(`Process exited with code ${code}: ${stderrData}`))
+      }
+    })
+    child.on('error', (err) => {
+      reject(err)
+    })
+  })
 }

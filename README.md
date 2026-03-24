@@ -26,7 +26,6 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 - `--watch` - watch the tests for changes
 - `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
 - `-r` | `--root` - the root path to run the tests from (default `process.cwd()`)
-- `-t` | `--threads` - Number of threads to run concurrently (default `10`)
 
 ### Basic Usage
 
