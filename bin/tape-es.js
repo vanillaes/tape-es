@@ -2,7 +2,6 @@
 import { testAll, testWatch } from './commands/index.js'
 import { createRequire } from 'node:module'
 import { Command } from 'commander'
-const program = new Command()
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 
@@ -10,11 +9,10 @@ const DEFAULT_PATTERN = '**/*.spec.js'
 const DEFAULT_IGNORE = '**/node_modules/**'
 const DEFAULT_ROOT = process.cwd()
 
-program
+const program = new Command()
   .name('tape-es')
   .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
-
-program.version(pkg.version, '-v, --version')
+  .version(pkg.version, '-v, --version')
 
 program.argument('[pattern]', 'Glob pattern', DEFAULT_PATTERN)
   .description('Test files matching the provided pattern (default *.spec.js)')
