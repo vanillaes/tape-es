@@ -24,8 +24,8 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 
 - `[pattern]` - the file matcher pattern (default `**/*.spec.js`)
 - `--watch` - watch the tests for changes
-- `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
-- `-r` | `--root` - the root path to run the tests from (default `process.cwd()`)
+- `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
+- `--root` - the root path to run the tests from (default `process.cwd()`)
 
 ### Basic Usage
 

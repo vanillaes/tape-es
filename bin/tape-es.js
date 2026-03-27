@@ -18,8 +18,8 @@ program.argument('[pattern]', 'Glob pattern', DEFAULT_PATTERN)
   .description('Test files matching the provided pattern (default *.spec.js)')
   .usage('[--watch] [-irt] pattern', false)
   .option('--watch', 'Watch for changes to tests', false)
-  .option('-i, --ignore [value]', 'Ignore files pattern', DEFAULT_IGNORE)
-  .option('-r, --root [value]', 'The root path', DEFAULT_ROOT)
+  .option('--ignore [value]', 'Ignore files pattern', DEFAULT_IGNORE)
+  .option('--root [value]', 'The root path', DEFAULT_ROOT)
   .action((pattern, options) => {
     if (!options?.watch) {
       testAll(pattern, options)
