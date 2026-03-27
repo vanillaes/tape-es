@@ -5,21 +5,17 @@ import { Command } from 'commander'
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 
-const DEFAULT_PATTERN = '**/*.spec.js'
-const DEFAULT_IGNORE = '**/node_modules/**'
-const DEFAULT_ROOT = process.cwd()
-
 const program = new Command()
   .name('tape-es')
   .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
   .version(pkg.version, '-v, --version')
 
-program.argument('[pattern]', 'Glob pattern', DEFAULT_PATTERN)
+program.argument('[pattern]', 'Glob pattern', '**/*.spec.js')
   .description('Test files matching the provided pattern (default *.spec.js)')
-  .usage('[--watch] [-irt] pattern', false)
+  .usage('[--watch] [...options] pattern', false)
   .option('--watch', 'Watch for changes to tests', false)
-  .option('--ignore [value]', 'Ignore files pattern', DEFAULT_IGNORE)
-  .option('--root [value]', 'The root path', DEFAULT_ROOT)
+  .option('--ignore [ignore]', 'Ignore files pattern', '**/node_modules/**')
+  .option('--cwd [cwd]', 'The current working directory', process.cwd())
   .action((pattern, options) => {
     if (!options?.watch) {
       testAll(pattern, options)

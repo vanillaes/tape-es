@@ -4,26 +4,27 @@ import { glob } from 'node:fs/promises'
 /**
  * Description
  * @param {string} pattern glob pattern(s) to match
- * @param {string} root root path where the matcher runs from
+ * @param {string} cwd the current working directory
  * @param {string} ignore glob of pattern(s) to ignore
  * @returns {Promise<string[]>} an array of paths
  */
-export async function match (pattern, root, ignore) {
+export async function match (pattern, cwd, ignore) {
   const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
   const ignores = ignore.includes(',') ? ignore.split(',') : [ignore]
 
-  return await Array.fromAsync(glob(patterns, { cwd: root, exclude: ignores }))
+  return await Array.fromAsync(glob(patterns, { cwd, exclude: ignores }))
 }
 
 /**
  * Run 'spawn' asynchronously
  * @param {string} command the command to run
  * @param {string[]} args an array of arguments
- * @param {string} root the root directory to run the commands
+ * @param {string} cwd the current working directory
+ * @returns {Promise} returns a promise that spawns a test
  */
-export function spawnAsync (command, args, root) {
+export function spawnAsync (command, args, cwd) {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args, { cwd: root })
+    const child = spawn(command, args, { cwd })
 
     let stdoutData = ''
     let stderrData = ''

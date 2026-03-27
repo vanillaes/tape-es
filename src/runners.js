@@ -4,11 +4,11 @@ import { spawnAsync } from './index.js'
 /**
  * Run a single test file
  * @param {string} test path to the test file
- * @param {any} root root path where the test is based
+ * @param {string} cwd the current working directory
  */
-export async function run (test, root) {
+export async function run (test, cwd) {
   spawn('node', [test], {
-    cwd: root,
+    cwd,
     stdio: ['pipe', process.stdout, process.stderr]
   }).on('close', msg => {
     if (msg === 1) { console.error('\x1b[31m%s\x1b[0m %s', 'ERR', 'Test failed!') }
@@ -20,11 +20,11 @@ export async function run (test, root) {
 /**
  * Run all tests
  * @param {Array<string>} tests paths to the test files
- * @param {string} root root path where the test is based
+ * @param {string} cwd the current working directory
  */
-export async function runAll (tests, root) {
+export async function runAll (tests, cwd) {
   for (const test of tests) {
-    const result = await spawnAsync('node', [test], root)
+    const result = await spawnAsync('node', [test], cwd)
     console.log(result.stdout)
   }
 }

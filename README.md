@@ -23,9 +23,9 @@ A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both
 `tape-es [pattern] -i [pattern] -r [path] -t [number]`
 
 - `[pattern]` - the file matcher pattern (default `**/*.spec.js`)
-- `--watch` - watch the tests for changes
+- `--cwd` - the current working directory (default `process.cwd()`)
 - `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
-- `--root` - the root path to run the tests from (default `process.cwd()`)
+- `--watch` - watch the tests for changes
 
 ### Basic Usage
 
