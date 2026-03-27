@@ -1,6 +1,8 @@
 <h1 align="center">Tape-ES</h1>
 
-A **[Tape.js][]** test runner and watcher for modern JavaScript. Works with both ES modules and CommonJS.
+<div align="center">A <a href="https://github.com/substack/tape">Tape.js</a> test runner and watcher for modern JavaScript. Works with both ES modules and CommonJS.</div>
+
+<br />
 
 <div align="center">
   <a href="https://github.com/vanillaes/tape-es/releases"><img src="https://badgen.net/github/tag/vanillaes/tape-es?cache-control=no-cache" alt="GitHub Release"></a>
