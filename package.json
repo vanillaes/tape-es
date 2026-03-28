@@ -22,7 +22,7 @@
   },
   "scripts": {
     "lint": "esmtk lint",
-    "types": "esmtk type ./src/index.js",
+    "type": "esmtk type ./src/index.js",
     "preview": "esmtk preview",
     "preversion": "npm run lint",
     "postversion": "git push --follow-tags"
