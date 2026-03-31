@@ -1,5 +1,5 @@
-import { spawn } from 'child_process'
 import { spawnAsync } from './index.js'
+import { spawn } from 'node:child_process'
 
 /**
  * Run a single test file
@@ -30,7 +30,11 @@ export async function runAll (tests, cwd) {
       console.log(result.stdout)
     } catch (error) {
       fail = true
-      console.error(error?.stdout)
+      if (error instanceof Error) {
+        console.log(error.message)
+      } else {
+        console.error("Unexpected error type:", error)
+      }
     }
   }
   if (fail) {
