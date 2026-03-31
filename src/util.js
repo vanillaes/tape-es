@@ -39,7 +39,7 @@ export function spawnAsync (command, args, cwd) {
       if (code === 0) {
         resolve({ stdout: stdoutData, stderr: stderrData })
       } else {
-        reject(new Error(`Process exited with code ${code}: ${stderrData}`))
+        reject({ stdout: stdoutData, stderr: stderrData })
       }
     })
     child.on('error', (err) => {

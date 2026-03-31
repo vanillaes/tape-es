@@ -30,7 +30,7 @@
           "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/bin/tape-es.js",
-      "args": ["-r", "${userHome}/Code/vanillaes/csv"],
+      "args": ["--cwd", "${userHome}/Code/vanillaes/absurdum"],
       "console": "integratedTerminal",
     },
     {
@@ -41,7 +41,7 @@
           "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/bin/tape-es.js",
-      "args": ["--watch", "-r", "${userHome}/Code/vanillaes/csv"],
+      "args": ["--watch", "-cwd", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
   }
   ]
