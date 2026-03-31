@@ -23,8 +23,17 @@ export async function run (test, cwd) {
  * @param {string} cwd the current working directory
  */
 export async function runAll (tests, cwd) {
+  let fail = false
   for (const test of tests) {
-    const result = await spawnAsync('node', [test], cwd)
-    console.log(result.stdout)
+    try {
+      const result = await spawnAsync('node', [test], cwd)
+      console.log(result.stdout)
+    } catch (error) {
+      fail = true
+      console.error(error?.stdout)
+    }
+  }
+  if (fail) {
+    process.exitCode = 1
   }
 }
