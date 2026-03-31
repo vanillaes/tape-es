@@ -33,7 +33,7 @@ export async function runAll (tests, cwd) {
       if (error instanceof Error) {
         console.log(error.message)
       } else {
-        console.error("Unexpected error type:", error)
+        console.error(`Unexpected error: ${error}`)
       }
     }
   }
