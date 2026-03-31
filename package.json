@@ -22,9 +22,10 @@
   },
   "scripts": {
     "lint": "esmtk lint",
+    "test": "esmtk test",
     "type": "esmtk type --types node ./src/index.js",
     "preview": "esmtk preview",
-    "preversion": "npm run lint && npm run type",
+    "preversion": "npm run lint && npm run test && npm run type",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
@@ -34,6 +35,6 @@
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
-    "@vanillaes/esmtk": "^1.2.1"
+    "@vanillaes/esmtk": "^1.2.2"
   }
 }
