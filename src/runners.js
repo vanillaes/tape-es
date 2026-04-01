@@ -12,8 +12,9 @@ export async function run (test, cwd) {
     stdio: ['pipe', process.stdout, process.stderr]
   }).on('close', msg => {
     if (msg === 1) { console.error('\x1b[31m%s\x1b[0m %s', 'ERR', 'Test failed!') }
-  }).on('error', err => {
-    console.error(err)
+  }).on('error', error => {
+    console.error(error)
+    process.exitCode = 1
   })
 }
 
@@ -26,8 +27,20 @@ export async function runAll (tests, cwd) {
   let fail = false
   for (const test of tests) {
     try {
-      const result = await spawnAsync('node', [test], cwd)
-      console.log(result.stdout)
+      const { code, stdout, stderr } = await spawnAsync('node', [test], cwd)
+      if (code === 0) {
+        console.log(stdout)
+      } else {
+        if (stdout) {
+          fail = true
+          console.log(stdout)
+        }
+        if (stderr) {
+          console.error(stderr)
+          process.exitCode = 1
+          return
+        }
+      }
     } catch (error) {
       fail = true
       if (error instanceof Error) {
@@ -35,6 +48,8 @@ export async function runAll (tests, cwd) {
       } else {
         console.error(`Unexpected error: ${error}`)
       }
+      process.exitCode = 1
+      return
     }
   }
   if (fail) {

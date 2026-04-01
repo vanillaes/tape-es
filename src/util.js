@@ -20,7 +20,7 @@ export async function match (pattern, cwd, ignore) {
  * @param {string} command the command to run
  * @param {string[]} args an array of arguments
  * @param {string} cwd the current working directory
- * @returns {Promise<{stdout: string, stderr: string}>} returns a promise that spawns a test
+ * @returns {Promise<{code: number, stdout: string, stderr: string}>} returns a promise that spawns a test
  */
 export function spawnAsync (command, args, cwd) {
   return new Promise((resolve, reject) => {
@@ -33,17 +33,17 @@ export function spawnAsync (command, args, cwd) {
       stdoutData += data.toString()
     })
     child.stderr.on('data', (data) => {
-      stderrData += data.toString()
+      data = data.toString()
+      if (data === 'Debugger attached.\n' || data === 'Waiting for the debugger to disconnect...\n') {
+        return
+      }
+      stderrData += data
     })
     child.on('close', (/** @type {number} */ code) => {
-      if (code === 0) {
-        resolve({ stdout: stdoutData, stderr: stderrData })
-      } else {
-        reject(new Error(stdoutData))
-      }
+      resolve({ code, stdout: stdoutData, stderr: stderrData })
     })
-    child.on('error', (err) => {
-      reject(err)
+    child.on('error', (error) => {
+      reject(new Error(error.message))
     })
   })
 }

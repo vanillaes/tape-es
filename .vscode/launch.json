@@ -30,18 +30,18 @@
           "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/bin/tape-es.js",
-      "args": ["--cwd", "${userHome}/Code/vanillaes/absurdum"],
+      "args": ["--cwd", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
     },
     {
-      "name": "Tape-Watch-ES (Test)",
+      "name": "Tape-ES --watch (Test)",
       "type": "node",
       "request": "launch",
       "skipFiles": [
           "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/bin/tape-es.js",
-      "args": ["--watch", "-cwd", "${userHome}/Code/vanillaes/csv"],
+      "args": ["--watch", "--cwd", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
   }
   ]
