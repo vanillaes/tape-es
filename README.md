@@ -1,6 +1,6 @@
 <h1 align="center">Tape-ES</h1>
 
-<div align="center">A <a href="https://github.com/substack/tape">Tape.js</a> test runner and watcher for modern JavaScript. Works with both ES modules and CommonJS.</div>
+<div align="center">📼  A <a href="https://github.com/substack/tape">Tape</a> test runner and watcher for modern JavaScript</div>
 
 <br />
 
@@ -14,9 +14,11 @@
 
 ## Features
 
-- runs ES module tests
-- uses sensible defaults
-- works with `type: module` packages
+- Runs ECMAScript module tests
+- Runs CommonJS tests
+- Uses sensible defaults
+- Compatible with tap reporters
+- Works in CI/CD pipelines
 
 ## tape-es
 
@@ -49,27 +51,30 @@ tape-es "**/*.spec.js" -i "node_modules/**" -r ../absurdum/
 
 ## Writing Tests
 
-Tests are identical to Tape.js, except `import` is used to load modules rather than require.
+Tests are identical to [Tape][], except `import` is used to load modules (ie not `require`).
 
 ```javascript
-import test from 'tape';
-import { arrays } from '../../index.js';
+import test from 'tape'
+import { arrays } from '../../index.js'
 
 test('arrays.chunk(array) - should return a chunk for each item in the array', t => {
   // ...test code
-});
+})
 ```
 
 ## Tap Reporters
 
 One of the greatest advantages to using Tape, is that it outputs results in the standard [TAP][] format. That means you can pipe the results into a wide array of TAP reporters.
 
-The parallel nature of this runner will break most reporters. As a General rule.
+*Recommendation:*
 
 1. if you want speed (ie CI/CD) don't use a reporter
-2. if you want speed and readability use [tap-spec][]
-3. if you want to use any reporter, run tests in parallel with `tape-es -t 1`
+2. if you want readability use [tap-spec][]
 
-[Tape.js]: https://github.com/substack/tape
+```sh
+tape-es | tap-spec
+```
+
+[Tape]: https://github.com/substack/tape
 [TAP]: https://en.wikipedia.org/wiki/Test_Anything_Protocol
 [tap-spec]: https://github.com/scottcorgan/tap-spec
