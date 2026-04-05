@@ -18,23 +18,28 @@
     "tape-es": "bin/tape-es.js"
   },
   "exports": {
-    ".": "./src/index.js"
+    ".": {
+      "import": "./src/index.js",
+      "types": "./src/index.d.ts"
+    }
   },
   "scripts": {
     "lint": "esmtk lint",
     "test": "esmtk test",
     "type": "esmtk type --types node ./src/index.js",
+    "typings": "esmtk typings --types node ./src/index.js",
+    "clean": "esmtk clean --typings",
     "preview": "esmtk preview",
     "preversion": "npm run lint && npm run test && npm run type",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
+    "@vanillaes/esmtk": "^1.4.0",
     "chokidar": "^5.0.0",
     "commander": "^14.0.3",
     "tape": "^5.9.0"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0",
-    "@vanillaes/esmtk": "^1.2.3"
+    "@types/node": "^25.5.0"
   }
 }
