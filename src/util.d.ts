@@ -1,12 +1,4 @@
 /**
- * Description
- * @param {string} pattern glob pattern(s) to match
- * @param {string} cwd the current working directory
- * @param {string} ignore glob of pattern(s) to ignore
- * @returns {Promise<string[]>} an array of paths
- */
-export function match(pattern: string, cwd: string, ignore: string): Promise<string[]>;
-/**
  * Run 'spawn' asynchronously
  * @param {string} command the command to run
  * @param {string[]} args an array of arguments

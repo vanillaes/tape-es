@@ -2,20 +2,6 @@ import { spawn } from 'node:child_process'
 import { glob } from 'node:fs/promises'
 
 /**
- * Description
- * @param {string} pattern glob pattern(s) to match
- * @param {string} cwd the current working directory
- * @param {string} ignore glob of pattern(s) to ignore
- * @returns {Promise<string[]>} an array of paths
- */
-export async function match (pattern, cwd, ignore) {
-  const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
-  const ignores = ignore.includes(',') ? ignore.split(',') : [ignore]
-
-  return await Array.fromAsync(glob(patterns, { cwd, exclude: ignores }))
-}
-
-/**
  * Run 'spawn' asynchronously
  * @param {string} command the command to run
  * @param {string[]} args an array of arguments

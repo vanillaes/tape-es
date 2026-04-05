@@ -1,4 +1,5 @@
-import { match, runAll } from '../../src/index.js'
+import { runAll } from '../../src/index.js'
+import { match } from '@vanillaes/esmtk'
 
 /**
  * Run all tests matching the provided pattern

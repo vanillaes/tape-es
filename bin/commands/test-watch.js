@@ -1,4 +1,5 @@
-import { match, run } from '../../src/index.js'
+import { run } from '../../src/index.js'
+import { match } from '@vanillaes/esmtk'
 import { watch } from 'chokidar'
 
 /**
