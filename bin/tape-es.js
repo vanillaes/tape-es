@@ -12,7 +12,7 @@ const program = new Command()
 
 program.argument('[pattern]', 'Glob pattern', '**/*.spec.js')
   .description('Test files matching the provided pattern (default *.spec.js)')
-  .usage('[--watch] [...options] pattern', false)
+  .usage('[...options] [pattern]')
   .option('--watch', 'Watch for changes to tests', false)
   .option('--ignore [ignore]', 'Ignore files pattern', '**/node_modules/**')
   .option('--cwd [cwd]', 'The current working directory', process.cwd())

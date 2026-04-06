@@ -1,5 +1,4 @@
 import { spawn } from 'node:child_process'
-import { glob } from 'node:fs/promises'
 
 /**
  * Run 'spawn' asynchronously
@@ -18,18 +17,24 @@ export function spawnAsync (command, args, cwd) {
     child.stdout.on('data', (data) => {
       stdoutData += data.toString()
     })
+
     child.stderr.on('data', (data) => {
       data = data.toString()
+      // VSCode debug dumps to stderr for some reason, ignore it
       if (data === 'Debugger attached.\n' || data === 'Waiting for the debugger to disconnect...\n') {
         return
       }
       stderrData += data
     })
-    child.on('close', (/** @type {number} */ code) => {
-      resolve({ code, stdout: stdoutData, stderr: stderrData })
-    })
+
+    // handle errors
     child.on('error', (error) => {
       reject(new Error(error.message))
+    })
+
+    // forward the error code
+    child.on('close', (/** @type {number} */ code) => {
+      resolve({ stdout: stdoutData, stderr: stderrData, code })
     })
   })
 }

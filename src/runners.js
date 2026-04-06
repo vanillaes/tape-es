@@ -7,14 +7,21 @@ import { spawn } from 'node:child_process'
  * @param {string} cwd the current working directory
  */
 export async function run (test, cwd) {
-  spawn('node', [test], {
+  const child = spawn('node', [test], {
     cwd,
     stdio: ['pipe', process.stdout, process.stderr]
-  }).on('close', msg => {
-    if (msg === 1) { console.error('\x1b[31m%s\x1b[0m %s', 'ERR', 'Test failed!') }
-  }).on('error', error => {
+  })
+
+  // handle errors
+  child.on('error', error => {
     console.error(error)
     process.exitCode = 1
+  })
+
+  child.on('close', (/** @type {number} */ code) => {
+    if (code === 1) {
+      console.error('\x1b[31m%s\x1b[0m %s', 'ERR', 'Test failed!')
+    }
   })
 }
 
@@ -27,7 +34,7 @@ export async function runAll (tests, cwd) {
   let fail = false
   for (const test of tests) {
     try {
-      const { code, stdout, stderr } = await spawnAsync('node', [test], cwd)
+      const { stdout, stderr, code } = await spawnAsync('node', [test], cwd)
       if (code === 0) {
         console.log(stdout)
       } else {
