@@ -10,19 +10,20 @@ const program = new Command()
   .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
   .version(pkg.version, '-v, --version')
 
-program.argument('[pattern]', 'Glob pattern', '**/*.spec.js')
-  .description('Test files matching the provided pattern (default *.spec.js)')
-  .usage('[...options] [pattern]')
-  .option('--watch', 'Watch for changes to tests', false)
-  .option('--ignore [ignore]', 'Ignore files pattern', '**/node_modules/**')
-  .option('--cwd [cwd]', 'The current working directory', process.cwd())
-  .action((pattern, options) => {
+program
+  .description('Run Tape test(s)')
+  .usage('[...options] [glob]')
+  .argument('[glob]', 'glob(s) used to locate test files', '**/*.spec.js')
+  .option('--cwd [cwd]', 'current working directory', process.cwd())
+  .option('--ignore [ignore]', 'glob(s) to ignore', '**/node_modules/**')
+  .option('--watch', 'watch for changes to tests')
+  .action((glob, options) => {
     if (!options?.watch) {
-      testAll(pattern, options)
+      testAll(glob, options)
     }
 
     if (options?.watch) {
-      testWatch(pattern, options)
+      testWatch(glob, options)
     }
   })
 

@@ -24,6 +24,7 @@
     }
   },
   "scripts": {
+    "tape-es": "node ./bin/tape-es.js",
     "lint": "esmtk lint",
     "test": "esmtk test",
     "type": "esmtk type --types node ./src/index.js && esmtk type --types node ./bin/tape-es.js",

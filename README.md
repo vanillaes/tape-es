@@ -1,6 +1,6 @@
 <h1 align="center">Tape-ES</h1>
 
-<div align="center">📼  A <a href="https://github.com/substack/tape">Tape</a> test runner and watcher for modern JavaScript</div>
+<div align="center">📼  A <a href="https://github.com/substack/tape">Tape</a> test runner for modern JavaScript  📼</div>
 
 <br />
 
@@ -24,30 +24,33 @@
 
 ### Arguments
 
-`tape-es [pattern] -i [pattern] -r [path] -t [number]`
+`tape-es [...options] [glob]`
 
-- `[pattern]` - the file matcher pattern (default `**/*.spec.js`)
-- `--cwd` - the current working directory (default `process.cwd()`)
-- `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
-- `--watch` - watch the tests for changes
+- `[glob]` - Glob(s) used to locate test files (default: `**/*.spec.js`)
+- `--cwd` - Current working directory (default `process.cwd()`)
+- `--ignore` - Glob(s) to ignore (default `**/node_modules/**`)
+- `--watch` - Watch for changes to the test(s)
 
-### Basic Usage
-
-Use the defaults
+### Usage
 
 ```sh
-tape-es
+# run the tests
+esmtk test
+
+# run the tests (using a different naming scheme)
+esmtk test **/*.test.js
+
+# run the tests (ignore tests)
+esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
+
+# run the tests (change the current working directory)
+esmtk test **/*.test.js --cwd src/
+
+# run the tests (watch for changes)
+esmtk test --watch
 ```
 
-### Advanced Usage
-
-Specify custom parameters
-
-```sh
-tape-es "**/*.spec.js" -i "node_modules/**" -r ../absurdum/
-```
-
-**Note: In Linux/OSX the matcher patterns must be delimited in quotes.**
+**Note: In Linux/OSX, glob pattern[s] must be delimited in quotes.**
 
 ## Writing Tests
 
