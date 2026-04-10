@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import { testAll, testWatch } from './commands/index.js'
-import { createRequire } from 'node:module'
+import { run, runAll } from '../src/index.js'
+import { match, Package } from '@vanillaes/esmtk'
+import { watch } from 'chokidar'
 import { Command } from 'commander'
-const require = createRequire(import.meta.url)
-const pkg = require('../package.json')
 
+const pkg = new Package()
 const program = new Command()
   .name('tape-es')
-  .version(pkg?.version || '', '-v, --version')
+  .version(pkg?.version, '-v, --version')
   .usage('[...options] [glob]')
   .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
   .argument('[glob]', 'glob(s) used to locate test files', '**/*.spec.js')
@@ -25,3 +25,35 @@ const program = new Command()
   })
 
 program.parse(process.argv)
+
+/**
+ * Run all tests matching the provided pattern
+ * @private
+ * @param {string} pattern the pattern to locate the test files
+ * @param {object} options 'test' options
+ * @param {string} options.cwd the current working directory
+ * @param {string} options.ignore Ignore files pattern
+ */
+export async function testAll (pattern, options) {
+  const tests = await match(pattern, options.cwd, options.ignore)
+  await runAll(tests, options?.cwd)
+}
+
+/**
+ * Watch test files and run a test when it changes
+ * @private
+ * @param {string} pattern the pattern used to locate the test files
+ * @param {object} options test options
+ * @param {string} options.cwd the current working directory
+ * @param {string} options.ignore Ignore files pattern
+ */
+export async function testWatch (pattern, options) {
+  const tests = await match(pattern, options?.cwd, options?.ignore)
+  const watcher = watch(tests, {
+    persistent: true,
+    ignoreInitial: true,
+    cwd: options?.cwd,
+    depth: 99
+  })
+  watcher.on('all', (_, path) => run(path, options.cwd))
+}
