@@ -7,12 +7,9 @@ const pkg = require('../package.json')
 
 const program = new Command()
   .name('tape-es')
-  .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
-  .version(pkg.version, '-v, --version')
-
-program
-  .description('Run Tape test(s)')
+  .version(pkg?.version || '', '-v, --version')
   .usage('[...options] [glob]')
+  .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
   .argument('[glob]', 'glob(s) used to locate test files', '**/*.spec.js')
   .option('--cwd [cwd]', 'current working directory', process.cwd())
   .option('--ignore [ignore]', 'glob(s) to ignore', '**/node_modules/**')
