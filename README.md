@@ -6,8 +6,9 @@
 
 <div align="center">
   <a href="https://github.com/vanillaes/tape-es/releases"><img src="https://badgen.net/github/tag/vanillaes/tape-es?cache-control=no-cache" alt="GitHub Release"></a>
-  <a href="https://www.npmjs.com/package/@vanillaes/tape-es"><img src="https://badgen.net/npm/v/@vanillaes/tape-es?icon=npm" alt="NPM Version"></a>
-  <a href="https://www.npmjs.com/package/@vanillaes/tape-es"><img src="https://badgen.net/npm/dm/@vanillaes/tape-es?icon=npm" alt="NPM Downloads"></a>
+  <a href="https://www.npmjs.com/package/@vanillaes/tape-es"><img src="https://badgen.net/npm/dm/@vanillaes/tape-es?icon=npm" alt="NPM Monthly Downloads"></a>
+  <a href="https://jsr.io/@vanillaes/tape-es"><img src="https://jsr.io/badges/@vanillaes/tape-es/weekly-downloads" alt="JSR Weekly Downloads"></a>
+  <a href="https://jsr.io/@vanillaes/tape-es"><img src="https://jsr.io/badges/@vanillaes/tape-es/score" alt="JSR Score"></a>
   <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Latest/badge.svg" alt="Latest Status"></a>
   <a href="https://github.com/vanillaes/tape-es/actions"><img src="https://github.com/vanillaes/tape-es/workflows/Release/badge.svg" alt="Release Status"></a>
 </div>

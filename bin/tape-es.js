@@ -7,7 +7,7 @@ import { Command } from 'commander'
 const pkg = new Package()
 const program = new Command()
   .name('tape-es')
-  .version(pkg?.version, '-v, --version')
+  .version(pkg?.version || '', '-v, --version')
   .usage('[...options] [glob]')
   .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
   .argument('[glob]', 'glob(s) used to locate test files', '**/*.spec.js')

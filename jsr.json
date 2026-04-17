@@ -1,0 +1,22 @@
+{
+  "name": "@vanillaes/tape-es",
+  "version": "4.0.14",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "publish": {
+    "include": [
+      "bin/**/*.js",
+      "src/**/*.js",
+      "src/**/*.d.ts",
+      "LICENSE",
+      "README.md"
+    ],
+    "exclude": [
+      "**/__tests__/**",
+      "bin/**/*.spec.js",
+      "src/**/*.spec.js"
+    ]
+  }
+}
