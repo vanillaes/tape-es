@@ -27,7 +27,7 @@
     "tape-es": "node ./bin/tape-es.js",
     "test": "esmtk test",
     "lint": "esmtk lint",
-    "type": "esmtk type --types node && esmtk type --types node ./bin/tape-es.js",
+    "type": "esmtk type --strict --types node && esmtk type --strict --types node ./bin/tape-es.js",
     "build": "esmtk typings --types node",
     "clean": "esmtk clean --typings",
     "preview": "esmtk preview",

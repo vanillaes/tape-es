@@ -8,19 +8,19 @@ const pkg = new Package()
 const program = new Command()
   .name('tape-es')
   .version(pkg?.version || '', '-v, --version')
-  .usage('[...options] [glob]')
+  .usage('[...options] [files]')
   .description('Tape-ES Test Framework (ECMAScript Compatible Version)')
-  .argument('[glob]', 'glob(s) used to locate test files', '**/*.spec.js')
-  .option('--cwd [cwd]', 'current working directory', process.cwd())
-  .option('--ignore [ignore]', 'glob(s) to ignore', '**/node_modules/**')
-  .option('--watch', 'watch for changes to tests')
-  .action((glob, options) => {
+  .argument('[files]', 'File(s)/glob(s) to test (default: **/*.spec.js')
+  .option('--cwd [cwd]', 'Current working directory')
+  .option('--ignore [ignore]', 'Files(s)/glob(s) to ignore (default: **/node_modules/**')
+  .option('--watch', 'Watch for changes')
+  .action((files, options) => {
     if (!options?.watch) {
-      testAll(glob, options)
+      testAll(files, options)
     }
 
     if (options?.watch) {
-      testWatch(glob, options)
+      testWatch(files, options)
     }
   })
 
@@ -29,31 +29,41 @@ program.parse(process.argv)
 /**
  * Run all tests matching the provided pattern
  * @private
- * @param {string} pattern the pattern to locate the test files
- * @param {object} options 'test' options
- * @param {string} options.cwd the current working directory
- * @param {string} options.ignore Ignore files pattern
+ * @param {string} [pattern] Pattern(s) used to locate the test files
+ * @param {object} [options] 'test' options
+ * @param {string} [options.cwd] Current working directory
+ * @param {string} [options.ignore] Ignore pattern(s)
  */
-export async function testAll (pattern, options) {
-  const tests = await match(pattern, options.cwd, options.ignore)
-  await runAll(tests, options?.cwd)
+export async function testAll (pattern = '**/*.spec.js', options = {}) {
+  const {
+    cwd = process.cwd(),
+    ignore = '**/node_modules/**'
+  } = options
+
+  const tests = await match(pattern, cwd, ignore)
+  await runAll(tests, cwd)
 }
 
 /**
  * Watch test files and run a test when it changes
  * @private
- * @param {string} pattern the pattern used to locate the test files
- * @param {object} options test options
- * @param {string} options.cwd the current working directory
- * @param {string} options.ignore Ignore files pattern
+ * @param {string} [pattern] Pattern(s) used to locate the test files
+ * @param {object} [options] 'test' options
+ * @param {string} [options.cwd] Current working directory
+ * @param {string} [options.ignore] Ignore pattern(s)
  */
-export async function testWatch (pattern, options) {
-  const tests = await match(pattern, options?.cwd, options?.ignore)
+export async function testWatch (pattern = '**/*.spec.js', options = {}) {
+  const {
+    cwd = process.cwd(),
+    ignore = '**/node_modules/**'
+  } = options
+
+  const tests = await match(pattern, cwd, ignore)
   const watcher = watch(tests, {
     persistent: true,
     ignoreInitial: true,
-    cwd: options?.cwd,
+    cwd,
     depth: 99
   })
-  watcher.on('all', (_, path) => run(path, options.cwd))
+  watcher.on('all', (_, path) => run(path, cwd))
 }

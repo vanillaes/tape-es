@@ -1,4 +1,4 @@
 .github/
 .vscode/
 *.spec.js
-*.tgz
+jsr.json
