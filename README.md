@@ -42,7 +42,7 @@ esmtk test
 esmtk test **/*.test.js
 
 # run the tests (ignore tests)
-esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
+esmtk test **/*.test.js --ignore node_modules/**,src/rm.spec.js
 
 # run the tests (change the current working directory)
 esmtk test **/*.test.js --cwd src/
@@ -65,6 +65,22 @@ test('arrays.chunk(array) - should return a chunk for each item in the array', t
   // ...test code
 })
 ```
+
+## Configuration
+
+Project-level config can be defined in `package.json`
+
+*package.json*
+```json
+{
+  "tape" {
+    "files": [ "**.*.mjs" ],
+    "ignore": [ "test/**.*" ]
+  }
+}
+```
+
+**Note: Configuration defined in the command-line will take precedence over `package.json` configuration.**
 
 ## Tap Reporters
 

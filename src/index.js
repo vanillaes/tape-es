@@ -1,6 +1,8 @@
 /* @ts-self-types="./index.d.ts" */
 import { spawn } from 'node:child_process'
 
+export { TapeConfig } from './config.js'
+
 /**
  * Run a single test file
  * @param {string} test Path to the test file

@@ -1,8 +1,16 @@
 #!/usr/bin/env node
-import { run, runAll } from '../src/index.js'
-import { match, Package } from '@vanillaes/esmtk'
+import { run, runAll, TapeConfig } from '../src/index.js'
+import { matchAll, Package } from '@vanillaes/esmtk'
 import { watch } from 'chokidar'
 import { Command } from 'commander'
+
+const DEFAULT_FILES = [
+  '**/*.spec.js'
+]
+
+const DEFAULT_IGNORE = [
+  'node_modules/'
+]
 
 const pkg = new Package()
 const program = new Command()
@@ -34,13 +42,38 @@ program.parse(process.argv)
  * @param {string} [options.cwd] Current working directory
  * @param {string} [options.ignore] Ignore pattern(s)
  */
-export async function testAll (pattern = '**/*.spec.js', options = {}) {
+export async function testAll (pattern, options = {}) {
   const {
     cwd = process.cwd(),
-    ignore = '**/node_modules/**'
+    ignore
   } = options
 
-  const tests = await match(pattern, cwd, ignore)
+  // extract config from package.json
+  const config = new TapeConfig(cwd)
+
+  // consolidate file pattern(s)
+  let patterns = [...DEFAULT_FILES]
+  if (pattern) {
+    const inputPatterns = pattern.includes(',') ? pattern.split(',') : [pattern]
+    patterns = [...patterns, ...inputPatterns]
+  }
+  if (config.files) {
+    patterns = [...patterns, ...config.files]
+  }
+  patterns = [...new Set(patterns)]
+
+  // consolidate ignore pattern(s)
+  let exclude = [...DEFAULT_IGNORE]
+  if (ignore) {
+    const inputExclude = ignore.includes(',') ? ignore.split(',') : [ignore]
+    exclude = [...exclude, ...inputExclude]
+  }
+  if (config.ignore) {
+    exclude = [...exclude, ...config.ignore]
+  }
+  exclude = [...new Set(exclude)]
+
+  const tests = await matchAll(patterns, cwd, exclude)
   await runAll(tests, cwd)
 }
 
@@ -58,7 +91,32 @@ export async function testWatch (pattern = '**/*.spec.js', options = {}) {
     ignore = '**/node_modules/**'
   } = options
 
-  const tests = await match(pattern, cwd, ignore)
+  // extract config from package.json
+  const config = new TapeConfig(cwd)
+
+  // consolidate file pattern(s)
+  let patterns = [...DEFAULT_FILES]
+  if (pattern) {
+    const inputPatterns = pattern.includes(',') ? pattern.split(',') : [pattern]
+    patterns = [...patterns, ...inputPatterns]
+  }
+  if (config.files) {
+    patterns = [...patterns, ...config.files]
+  }
+  patterns = [...new Set(patterns)]
+
+  // consolidate ignore pattern(s)
+  let exclude = [...DEFAULT_IGNORE]
+  if (ignore) {
+    const inputExclude = ignore.includes(',') ? ignore.split(',') : [ignore]
+    exclude = [...exclude, ...inputExclude]
+  }
+  if (config.ignore) {
+    exclude = [...exclude, ...config.ignore]
+  }
+  exclude = [...new Set(exclude)]
+
+  const tests = await matchAll(patterns, cwd, exclude)
   const watcher = watch(tests, {
     persistent: true,
     ignoreInitial: true,

@@ -10,3 +10,4 @@ export function run(test: string, cwd: string): Promise<void>;
  * @param {string} cwd Current working directory
  */
 export function runAll(tests: Array<string>, cwd: string): Promise<void>;
+export { TapeConfig } from "./config.js";
