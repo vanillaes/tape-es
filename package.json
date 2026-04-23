@@ -15,7 +15,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "tape-es": "bin/tape-es.js"
+    "tape-es": "bin/index.js"
   },
   "exports": {
     ".": {
@@ -24,10 +24,10 @@
     }
   },
   "scripts": {
-    "tape-es": "node ./bin/tape-es.js",
-    "test": "esmtk test",
+    "tape-es": "node ./bin/index.js",
+    "test": "node ./bin/index.js",
     "lint": "esmtk lint",
-    "type": "esmtk type --strict --types node && esmtk type --strict --types node ./bin/tape-es.js",
+    "type": "esmtk type --strict --types node && esmtk type --strict --types node ./bin/index.js",
     "build": "esmtk typings --types node",
     "clean": "esmtk clean --typings",
     "preview": "esmtk preview",

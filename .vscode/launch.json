@@ -8,7 +8,7 @@
       "skipFiles": [
           "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/bin/tape-es.js",
+      "program": "${workspaceFolder}/bin/index.js",
       "args": ["--version"],
       "console": "integratedTerminal",
     },
@@ -29,7 +29,7 @@
       "skipFiles": [
           "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/bin/tape-es.js",
+      "program": "${workspaceFolder}/bin/index.js",
       "args": ["--cwd", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
     },
@@ -40,7 +40,7 @@
       "skipFiles": [
           "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/bin/tape-es.js",
+      "program": "${workspaceFolder}/bin/index.js",
       "args": ["--watch", "--cwd", "${userHome}/Code/vanillaes/csv"],
       "console": "integratedTerminal",
   }
