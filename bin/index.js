@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { run, runAll, TapeConfig } from '../src/index.js'
-import { matchAll, Package } from '@vanillaes/esmtk'
+import { exists, matchAll, Package } from '@vanillaes/esmtk'
 import { watch } from 'chokidar'
 import { Command } from 'commander'
 
@@ -42,11 +42,19 @@ program.parse(process.argv)
  * @param {string} [options.cwd] Current working directory
  * @param {string} [options.ignore] Ignore pattern(s)
  */
-export async function testAll (pattern = '', options = {}) {
+export async function testAll (pattern, options = {}) {
   const {
     cwd = process.cwd(),
-    ignore = ''
+    ignore
   } = options
+
+  // current working directory
+  const cwdExists = await exists(cwd)
+  if (!cwdExists) {
+    console.error(`lint-es: ${cwd} No such file or directory`)
+    process.exitCode = 1
+    return
+  }
 
   const { files, exclude } = consolidateConfig(pattern, ignore, cwd)
 
@@ -68,6 +76,14 @@ export async function testWatch (pattern = '**/*.spec.js', options = {}) {
     ignore = '**/node_modules/**'
   } = options
 
+  // current working directory
+  const cwdExists = await exists(cwd)
+  if (!cwdExists) {
+    console.error(`lint-es: ${cwd} No such file or directory`)
+    process.exitCode = 1
+    return
+  }
+
   const { files, exclude } = consolidateConfig(pattern, ignore, cwd)
 
   const tests = await matchAll(files, cwd, exclude)
@@ -83,12 +99,12 @@ export async function testWatch (pattern = '**/*.spec.js', options = {}) {
 /**
  * Consiolidate the configurations (input, config, defaults)
  * @private
- * @param {string} pattern Pattern(s) used to locate the test files
- * @param {string} ignore Pattern(s) used to ignore
- * @param {string} cwd Current working directory
+ * @param {string} [pattern] Pattern(s) used to locate the test files
+ * @param {string} [ignore] Pattern(s) used to ignore
+ * @param {string} [cwd] Current working directory
  * @returns {{files: string[], exclude: string[]}} an object containing (files, exclude)
  */
-function consolidateConfig (pattern, ignore, cwd) {
+function consolidateConfig (pattern = '', ignore = '', cwd = process.cwd()) {
   // extract config from package.json
   const config = new TapeConfig(cwd)
 
