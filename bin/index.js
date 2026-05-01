@@ -42,38 +42,15 @@ program.parse(process.argv)
  * @param {string} [options.cwd] Current working directory
  * @param {string} [options.ignore] Ignore pattern(s)
  */
-export async function testAll (pattern, options = {}) {
+export async function testAll (pattern = '', options = {}) {
   const {
     cwd = process.cwd(),
-    ignore
+    ignore = ''
   } = options
 
-  // extract config from package.json
-  const config = new TapeConfig(cwd)
+  const { files, exclude } = consolidateConfig(pattern, ignore, cwd)
 
-  // consolidate file pattern(s)
-  let patterns = [...DEFAULT_FILES]
-  if (pattern) {
-    const inputPatterns = pattern.includes(',') ? pattern.split(',') : [pattern]
-    patterns = [...patterns, ...inputPatterns]
-  }
-  if (config.files) {
-    patterns = [...patterns, ...config.files]
-  }
-  patterns = [...new Set(patterns)]
-
-  // consolidate ignore pattern(s)
-  let exclude = [...DEFAULT_IGNORE]
-  if (ignore) {
-    const inputExclude = ignore.includes(',') ? ignore.split(',') : [ignore]
-    exclude = [...exclude, ...inputExclude]
-  }
-  if (config.ignore) {
-    exclude = [...exclude, ...config.ignore]
-  }
-  exclude = [...new Set(exclude)]
-
-  const tests = await matchAll(patterns, cwd, exclude)
+  const tests = await matchAll(files, cwd, exclude)
   await runAll(tests, cwd)
 }
 
@@ -91,32 +68,9 @@ export async function testWatch (pattern = '**/*.spec.js', options = {}) {
     ignore = '**/node_modules/**'
   } = options
 
-  // extract config from package.json
-  const config = new TapeConfig(cwd)
+  const { files, exclude } = consolidateConfig(pattern, ignore, cwd)
 
-  // consolidate file pattern(s)
-  let patterns = [...DEFAULT_FILES]
-  if (pattern) {
-    const inputPatterns = pattern.includes(',') ? pattern.split(',') : [pattern]
-    patterns = [...patterns, ...inputPatterns]
-  }
-  if (config.files) {
-    patterns = [...patterns, ...config.files]
-  }
-  patterns = [...new Set(patterns)]
-
-  // consolidate ignore pattern(s)
-  let exclude = [...DEFAULT_IGNORE]
-  if (ignore) {
-    const inputExclude = ignore.includes(',') ? ignore.split(',') : [ignore]
-    exclude = [...exclude, ...inputExclude]
-  }
-  if (config.ignore) {
-    exclude = [...exclude, ...config.ignore]
-  }
-  exclude = [...new Set(exclude)]
-
-  const tests = await matchAll(patterns, cwd, exclude)
+  const tests = await matchAll(files, cwd, exclude)
   const watcher = watch(tests, {
     persistent: true,
     ignoreInitial: true,
@@ -124,4 +78,44 @@ export async function testWatch (pattern = '**/*.spec.js', options = {}) {
     depth: 99
   })
   watcher.on('all', (_, path) => run(path, cwd))
+}
+
+/**
+ * Consiolidate the configurations (input, config, defaults)
+ * @private
+ * @param {string} pattern Pattern(s) used to locate the test files
+ * @param {string} ignore Pattern(s) used to ignore
+ * @param {string} cwd Current working directory
+ * @returns {{files: string[], exclude: string[]}} an object containing (files, exclude)
+ */
+function consolidateConfig (pattern, ignore, cwd) {
+  // extract config from package.json
+  const config = new TapeConfig(cwd)
+
+  // consolidate file pattern(s)
+  /** @type {string[]} */
+  let files = []
+  if (config.files) {
+    files = config.files
+  }
+  if (pattern) {
+    files = pattern.includes(',') ? pattern.split(',') : [pattern]
+  }
+  if (files.length === 0) {
+    files = DEFAULT_FILES
+  }
+  files = [...new Set(files)]
+
+  // consolidate ignore pattern(s)
+  let exclude = [...DEFAULT_IGNORE]
+  if (config.ignore) {
+    exclude = config.ignore
+  }
+  if (ignore) {
+    exclude = ignore.includes(',') ? ignore.split(',') : [ignore]
+  }
+  exclude = [...exclude, ...DEFAULT_IGNORE]
+  exclude = [...new Set(exclude)]
+
+  return { files, exclude }
 }
