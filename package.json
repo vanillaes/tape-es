@@ -26,17 +26,17 @@
   "scripts": {
     "tape-es": "node ./bin/index.js",
     "test": "node ./bin/index.js",
-    "lint": "esmtk lint",
-    "type": "esmtk type --strict --types node && esmtk type --strict --types node ./bin/index.js",
-    "build": "esmtk typings --types node",
-    "clean": "esmtk clean --typings",
-    "preview": "esmtk preview",
+    "lint": "es lint",
+    "type": "es type --strict --types node && es type --strict --types node ./bin/index.js",
+    "build": "es typings --types node",
+    "clean": "es clean --typings",
+    "preview": "es preview",
     "preversion": "npm run test && npm run lint && npm run type",
     "version": "npm run clean && npm run build && git add **/*.d.ts",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
-    "@vanillaes/esmtk": "^2.6.0",
+    "@vanillaes/esmtk": "^2.7.2",
     "chokidar": "^5.0.0",
     "commander": "^14.0.3",
     "tape": "^5.9.0"
