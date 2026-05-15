@@ -1,6 +1,6 @@
 {
   "name": "@vanillaes/tape-es",
-  "version": "5.2.3",
+  "version": "5.2.4",
   "license": "MIT",
   "exports": {
     ".": "./src/index.js"
